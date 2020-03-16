@@ -13,10 +13,12 @@ let readPasswd () =
         | '\r' | '\n' -> 
             Console.WriteLine ()
             charList
-        | '\b' -> 
+        | '\b' | '\u007f' -> 
             match charList with
             | head :: tail -> 
-                Console.Write "\b \b"
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                Console.Write " "
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
                 readKey <| tail 
             | [] -> readKey []        
         | chr -> 
