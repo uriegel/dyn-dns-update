@@ -1,5 +1,58 @@
 ﻿open System.Net
 open System.IO
+open System
+open System.Runtime.InteropServices
+
+//let settings = "/etc/dyndns-updater.conf"
+let settings = "d:/dyndns-updater.conf"
+
+// TODO: FSharpTools
+let readPasswd () =
+    let rec readKey charList =
+        match (Console.ReadKey true).KeyChar with
+        | '\r' | '\n' -> 
+            Console.WriteLine ()
+            charList
+        | '\b' -> 
+            match charList with
+            | head :: tail -> 
+                Console.Write "\b \b"
+                readKey <| tail 
+            | [] -> readKey []        
+        | chr -> 
+            Console.Write '*'
+            readKey <| chr :: charList
+    let secstr = new Security.SecureString ()
+    readKey []
+    |> List.rev
+    |> List.iter secstr.AppendChar
+    secstr
+
+// TODO: FSharpTools
+let readSecureString (secstr: Security.SecureString) =
+    let mutable valuePtr = IntPtr.Zero
+    try 
+        valuePtr <- Marshal.SecureStringToGlobalAllocUnicode secstr
+        Marshal.PtrToStringUni valuePtr
+    finally 
+        Marshal.ZeroFreeGlobalAllocUnicode valuePtr
+ 
+let getPasswd = readPasswd >> readSecureString
+
+let getSettings () =
+    match File.Exists settings with
+    | true-> ()
+    | false -> 
+        printfn "Enter domain names, comma separated:"
+        let text = Console.ReadLine ()
+        let domains = text |> String.splitChar ',' |> Array.map (fun n -> n |> String.trim)
+        printfn "Enter your dyndns provider (e.g. 'dyndns.strato.com'):"
+        let provider = Console.ReadLine ()
+        printfn "Enter your dyndns account name:"
+        let account = Console.ReadLine ()
+        printfn "Enter your dyndns password:"
+        let passwd = getPasswd ()
+        ()
 
 let getPublicIP () =
     let url = "http://checkip.dyndns.org"
@@ -22,6 +75,8 @@ let getPublicIP () =
 try 
     try 
         printfn "Starting Dyn DNS Auto Updater..."
+
+        let settings = getSettings ()
 
         let host = "uriegel.de"
 
