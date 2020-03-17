@@ -1,3 +1,4 @@
 .ionide/symbolCache.db
 bin
 obj
+dyndns-updater.conf

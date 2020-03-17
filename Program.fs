@@ -2,9 +2,10 @@
 open System.IO
 open System
 open System.Runtime.InteropServices
+open Settings
 
-//let settings = "/etc/dyndns-updater.conf"
-let settings = "d:/dyndns-updater.conf"
+//let settingsFile = "/etc/dyndns-updater.conf"
+let settingsFile = "dyndns-updater.conf"
 
 // TODO: FSharpTools
 let readPasswd () =
@@ -39,11 +40,24 @@ let readSecureString (secstr: Security.SecureString) =
     finally 
         Marshal.ZeroFreeGlobalAllocUnicode valuePtr
  
-let getPasswd = readPasswd >> readSecureString
+let getPasswd () =
+    let getPasswdFromConsole = readPasswd >> readSecureString
+
+    printfn "Enter your dyndns password:"
+
+    let rec getPasswd () =
+        match getPasswdFromConsole (), getPasswdFromConsole () with
+        | a, b when a = b -> a
+        | _, _ -> 
+            printfn "Passwords did not match, please try again:"
+            getPasswd ()
+    getPasswd ()                
 
 let getSettings () =
-    match File.Exists settings with
-    | true-> ()
+    match File.Exists settingsFile with
+    | true-> 
+        use file = File.OpenRead settingsFile
+        Json.deserializeStream<Settings.Value> file
     | false -> 
         printfn "Enter domain names, comma separated:"
         let text = Console.ReadLine ()
@@ -52,9 +66,16 @@ let getSettings () =
         let provider = Console.ReadLine ()
         printfn "Enter your dyndns account name:"
         let account = Console.ReadLine ()
-        printfn "Enter your dyndns password:"
         let passwd = getPasswd ()
-        ()
+        let settings = { 
+                domains = domains
+                provider = provider
+                account = account
+                passwd = passwd
+            }
+        use file = File.Create settingsFile
+        settings |> Json.serializeStream file
+        settings
 
 let getPublicIP () =
     let url = "http://checkip.dyndns.org"
@@ -80,17 +101,30 @@ try
 
         let settings = getSettings ()
 
-        let host = "uriegel.de"
-
         let ip = getPublicIP ()
         printfn "Public IP Address: %s" ip
-        let hostEntry = Dns.GetHostEntry host
-        match hostEntry.AddressList |> Array.exists (fun n -> n.ToString () = ip) with
-        | false -> 
-            // https://<account>:<pw>@<dyndns.strato.com>/nic/update?hostname=<hostname>&myip=<ip> 
-            printfn "IP Address changed, update to provider needed"
-            ()
-        | true -> printfn "IP Address not changed, no action needed"
+
+        let perform (host: string) = 
+            let hostEntry = Dns.GetHostEntry host
+            match hostEntry.AddressList |> Array.exists (fun n -> n.ToString () = ip) with
+            | false -> 
+                printfn "IP Address changed, update to provider needed"
+                let url = sprintf "https://%s/nic/update?hostname=%s&myip=%s" settings.provider host ip
+                printfn "Updating %s" url                             
+                let request = WebRequest.Create url :?> HttpWebRequest
+                let networkCredential = NetworkCredential (settings.account, settings.passwd)
+                let credentialCache = CredentialCache ()
+                credentialCache.Add (Uri (url), "Basic", networkCredential)
+                request.PreAuthenticate <- true
+                request.Credentials <- credentialCache
+                let response = request.GetResponse ()
+                use responseStream = response.GetResponseStream ()
+                use sw = new StreamReader (responseStream)
+                printfn "response: %s" <| sw.ReadToEnd ()
+            | true -> 
+                printfn "IP Address not changed, no action needed"
+
+        settings.domains |> Array.iter perform
     with
     | e -> printfn "Exception: %O" e
 finally
