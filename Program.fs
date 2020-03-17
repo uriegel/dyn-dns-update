@@ -43,14 +43,12 @@ let readSecureString (secstr: Security.SecureString) =
 let getPasswd () =
     let getPasswdFromConsole = readPasswd >> readSecureString
 
-    let getPasswdFromConsole () = 
-        printfn "Enter your dyndns password:"
-        getPasswdFromConsole ()
-        printfn "Enter your dyndns password again:"
+    let getPasswdFromConsole again = 
+        printfn "Enter your dyndns password%s" <| if again then " again" else ""
         getPasswdFromConsole ()
 
     let rec getPasswd () =
-        match getPasswdFromConsole (), getPasswdFromConsole () with
+        match getPasswdFromConsole false, getPasswdFromConsole true with
         | a, b when a = b -> a
         | _, _ -> 
             printfn "Passwords did not match, please try again:"
