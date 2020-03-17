@@ -115,8 +115,9 @@ try
                 let networkCredential = NetworkCredential (settings.account, settings.passwd)
                 let credentialCache = CredentialCache ()
                 credentialCache.Add (Uri (url), "Basic", networkCredential)
-                request.PreAuthenticate <- true
-                request.Credentials <- credentialCache
+                let encoded = System.Convert.ToBase64String (System.Text.Encoding.UTF8.GetBytes (settings.account + ":" + settings.passwd))
+request.Headers.Add ("Authorization", "Basic dXJpZWdlbC5kZTpqdWxpYWNoaWFyYTE=")
+                request.UserAgent <- "DynDNS Updater"
                 let response = request.GetResponse ()
                 use responseStream = response.GetResponseStream ()
                 use sw = new StreamReader (responseStream)
