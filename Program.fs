@@ -4,8 +4,8 @@ open System
 open System.Runtime.InteropServices
 open Settings
 
-//let settingsFile = "/etc/dyndns-updater.conf"
-let settingsFile = "dyndns-updater.conf"
+let settingsFile = "/etc/dyndns-updater.conf"
+//let settingsFile = "dyndns-updater.conf"
 
 // TODO: FSharpTools
 let readPasswd () =
@@ -43,7 +43,11 @@ let readSecureString (secstr: Security.SecureString) =
 let getPasswd () =
     let getPasswdFromConsole = readPasswd >> readSecureString
 
-    printfn "Enter your dyndns password:"
+    let getPasswdFromConsole () = 
+        printfn "Enter your dyndns password:"
+        getPasswdFromConsole ()
+        printfn "Enter your dyndns password again:"
+        getPasswdFromConsole ()
 
     let rec getPasswd () =
         match getPasswdFromConsole (), getPasswdFromConsole () with

@@ -1,5 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>dyndnsUpdate</ToolCommandName>
+    <PackageOutputPath>./nupkg</PackageOutputPath>    
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
