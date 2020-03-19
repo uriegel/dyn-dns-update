@@ -5,9 +5,9 @@
     <PackageOutputPath>./nupkg</PackageOutputPath>    
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>1.1.0</Version>
-		<FileVersion>1.1.0.0</FileVersion>
-		<AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <Version>1.1.1</Version>
+		<FileVersion>1.1.1.0</FileVersion>
+		<AssemblyVersion>1.1.1.0</AssemblyVersion>
 		<Authors>Uwe Riegel</Authors>
     <Company>Uwe Riegel</Company>		
 		<Description>DynDns updater</Description>
@@ -21,11 +21,12 @@
     <Compile Include="Settings.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
+  <PropertyGroup>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>  
   <ItemGroup>
-   	<None Include="LICENSE">
-   		<Pack>True</Pack>
-     	<PackagePath></PackagePath>
-   	</None>
+   	<None Include="LICENSE" pack="true" PackagePath ="." />
+   	<None Include="README.md" pack="true" PackagePath ="." />
  	</ItemGroup>  
   <ItemGroup>
     <PackageReference Include="FSharpTools" Version="2.2.1" />
