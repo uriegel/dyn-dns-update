@@ -5,8 +5,8 @@ open System.Runtime.InteropServices
 open Settings
 open System
 
-//let settingsFile = "/etc/dyndns-updater.conf"
-let settingsFile = Path.Combine (Environment.GetFolderPath Environment.SpecialFolder.ApplicationData, "dyndns-updater.conf")
+let settingsFile = "/etc/dyndns-updater.conf"
+//let settingsFile = Path.Combine (Environment.GetFolderPath Environment.SpecialFolder.ApplicationData, "dyndns-updater.conf")
 
 // TODO: FSharpTools
 let readPasswd () =

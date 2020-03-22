@@ -11,17 +11,17 @@ sudo dotnet tool install --tool-path /opt/dotnet --add-source ./nupkg DyndnsUpda
 
 ## Installation
 ```
-dotnet tool install --global
+dotnet tool install DynDnsUpdater --global
 ```
 
 ## Executing the tool
 ```
-dyndnsUpdate
+sudo ~/.dotnet/tools/dyndnsUpdate
 ``` 
 
 follow Instructions for giving necessary parameters
 
-Settings are saved in ```~/.config/dyndns-updater.conf``` (Linux)
+Settings are saved in ```/etc/dyndns-updater.conf``` (Linux)
 
 ## Executing tool every day (Linux)
 
