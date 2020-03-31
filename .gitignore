@@ -3,3 +3,6 @@ bin
 obj
 dyndns-updater.conf
 nupkg
+
+.fake
+.ionide
