@@ -5,13 +5,11 @@ open System.Runtime.InteropServices
 open Settings
 open System
 
-#if DEBUG
 let settingsFile = Path.Combine (Environment.GetFolderPath Environment.SpecialFolder.ApplicationData, "dyndns-updater.conf")
-#else
-let settingsFile = "/etc/dyndns-updater.conf"
-#endif
+// let settingsFile = "/etc/dyndns-updater.conf"
 
-// TODO: FSharpTools
+printfn "Settings file: %s" settingsFile
+
 let readPasswd () =
     let rec readKey charList =
         match (Console.ReadKey true).KeyChar with
@@ -35,7 +33,6 @@ let readPasswd () =
     |> List.iter secstr.AppendChar
     secstr
 
-// TODO: FSharpTools
 let readSecureString (secstr: Security.SecureString) =
     let mutable valuePtr = IntPtr.Zero
     try 

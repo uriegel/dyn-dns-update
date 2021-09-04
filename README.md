@@ -2,13 +2,6 @@
 DynDns client based on .NET Core for Linux and Windows
 Similar to ddclient
 
-## Installation (test)
-```
-dotnet pack -c Release
-sudo dotnet tool install --tool-path /opt/dotnet --add-source ./nupkg DyndnsUpdater
-(sudo ln -s /usr/local/share/dotnet-tools/DyndnsUpdater /usr/local/bin/DyndnsUpdater)
-```
-
 ## Installation
 ```
 dotnet tool install DynDnsUpdater --global
@@ -16,12 +9,12 @@ dotnet tool install DynDnsUpdater --global
 
 ## Executing the tool
 ```
-sudo ~/.dotnet/tools/dyndnsUpdate
+dyndnsUpdate
 ``` 
 
 follow Instructions for giving necessary parameters
 
-Settings are saved in ```/etc/dyndns-updater.conf``` (Linux)
+Settings are saved in ```~/.config/dyndns-updater.conf``` (Linux)
 
 ## Executing tool every day (Linux)
 
