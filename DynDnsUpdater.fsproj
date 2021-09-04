@@ -11,10 +11,13 @@
 		<Authors>Uwe Riegel</Authors>
     <Company>Uwe Riegel</Company>		
 		<Description>DynDns updater</Description>
+    <PackageTags>F#;dotnet;DynDns</PackageTags>
 		<PackageLicenseUrl></PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/uriegel/DynDnsUpdater</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageReleaseNotes>.NET 5.0</PackageReleaseNotes>      
 		<PackageTags>FSharp dotnet tool dyndns</PackageTags>    
   </PropertyGroup>
   <ItemGroup>
