@@ -1,7 +1,24 @@
-use std::fs;
+use std::{fs, default};
+
+use serde::Deserialize;
+
+#[derive(Debug)]
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Settings {
+    pub domains: Vec<String>,
+    pub provider: String,
+    pub account: String,
+    pub passwd: String,
+}
 
 fn main() {
-    println!("Hello, world!");
-    let foo = fs::read_to_string("Cargo.toml").expect("Could not read settings");
-    let test = foo;
+    println!("Starting dyn-dns-update...");    
+    let settings = fs::read_to_string("dyn-dns-update.conf").expect("Could not read settings");
+    let settings: Settings = serde_json::from_str(&settings).expect("Could not extract settings");
+    let log_settings = Settings {
+        passwd: "***".to_string(),
+        ..settings
+    };
+    println!("Settings: {log_settings:#?}");
 }
