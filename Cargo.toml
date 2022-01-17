@@ -11,3 +11,6 @@ serde_json = "1.0"
 dirs = "4.0"
 reqwest = { version = "0.11" , features = ["blocking"] }
 dns-lookup = "1.0"
+
+# Added due to reqwest dependency problems when cross-compiling for RPi
+openssl = { version = "0.10", features = ["vendored"] }
