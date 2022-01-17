@@ -1,5 +1,6 @@
-use std::{fs, default};
+use std::{fs, net::IpAddr, str::FromStr};
 
+use dns_lookup::lookup_host;
 use serde::Deserialize;
 
 #[derive(Debug)]
@@ -27,4 +28,27 @@ fn main() {
         ..settings
     };
     println!("Settings: {log_settings:#?}");
+
+    let public_ip = get_public_ip().expect("Could not get public ip");
+    println!("body = {public_ip:#?}", );
+
+
+    let hostname = "familie.uriegel.de";
+
+    let ips: Vec<IpAddr> = lookup_host(hostname).unwrap();
+    println!("dns lookup {hostname}: {ips:?}");    
+
+    let hostname = "uriegel.de";
+
+    let ips: Vec<IpAddr> = lookup_host(hostname).unwrap();
+    println!("dns lookup {hostname}: {ips:?}");    
+}
+
+fn get_public_ip() -> Result<IpAddr, reqwest::Error> {
+    let text = reqwest::blocking::get("http://checkip.dyndns.org")?.text()?;
+    let pos = text.find("Address:").expect("No Address found") + 8;
+    let ipstr = &text[pos..];
+    let pos = ipstr.find("</body").expect("No Address found");
+    let ipstr = ipstr[.. pos].trim();
+    Ok(IpAddr::from_str(ipstr).unwrap())
 }
