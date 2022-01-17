@@ -29,7 +29,7 @@ crontab -e
 Append
 
 ```
-0 3 * * * /home/pi/.dotnet/tools/dyn-dns-update > /home/pi/logs/dyn-dns-update.log 2>&1
+0 3 * * * /home/pi/server/dyn-dns-update > /home/pi/logs/dyn-dns-update.log 2>&1
 ```
 
 This executes dns update every day at 3 AM. Last log is saved in ```/home/pi/logs/dyn-dns-update.log```
