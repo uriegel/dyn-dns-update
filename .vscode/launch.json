@@ -5,16 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
-            "type": "coreclr",
+            "type": "lldb",
             "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/net5.0/DynDnsUpdater",
+            "name": "Debug executable 'dyn-dns-update'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=dyn-dns-update",
+                    "--package=dyn-dns-update"
+                ],
+                "filter": {
+                    "name": "dyn-dns-update",
+                    "kind": "bin"
+                }
+            },
             "args": [],
-            "cwd": "${workspaceFolder}",
-            "stopAtEntry": false,
-            "console": "integratedTerminal"
+            "cwd": "${workspaceFolder}"
         }
-
     ]
 }
