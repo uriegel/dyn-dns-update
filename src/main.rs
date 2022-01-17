@@ -51,7 +51,9 @@ fn main() {
         .map(|n|{n.name})
         .collect();
 
-        let affe = domains_to_refresh;
+    for domain in domains_to_refresh {
+        update_domain(&domain, &public_ip, &settings).expect("Could not update domain {domain}");
+    }
 }
 
 fn get_public_ip() -> Result<IpAddr, reqwest::Error> {
@@ -77,3 +79,27 @@ fn resolve_domain(domain: &String) -> ResolvedDomain {
     }
 }
 
+fn update_domain(domain: &str, ip: &IpAddr, settings: &Settings) -> Result<(), reqwest::Error> {
+    match ip {
+        IpAddr::V4(ip4) => {
+            let ip = ip4.to_string();
+            println!("Updating domain {domain}, ip {ip}");
+            let client = reqwest::blocking::Client::new();
+            let url = format!("https://{}/nic/update?hostname={domain}&myip={ip}", settings.provider);
+            let resp = client.get(url)
+                .basic_auth(&settings.account, Some(&settings.passwd))
+                .header("User-Agent", "URiegel dyn-dns-update")
+                .send()?;
+            let text = resp.text();
+            println!("Result: {text:?}");
+                
+            // let pos = text.find("Address:").expect("No Address found") + 8;
+            // let ipstr = &text[pos..];
+            // let pos = ipstr.find("</body").expect("No Address found");
+            // let ipstr = ipstr[.. pos].trim();
+            // Ok(IpAddr::from_str(ipstr).unwrap())
+        },
+        _ => panic!("Could not update domain {domain}, ip is ipv6: {ip}")
+    }
+    Ok(())
+}
