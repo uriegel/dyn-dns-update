@@ -4,7 +4,7 @@ Similar to ddclient
 
 ## Installation
 ```
-Settings are stored in ```~/.config/dyn-dns-update.conf``` 
+Settings are stored in ```~/.config/dyn-dns-update/dyn-dns-update.conf``` 
 ```
 
 ## Executing the tool
