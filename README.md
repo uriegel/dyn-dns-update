@@ -1,5 +1,5 @@
 # dyn-dns-update
-DynDns client based on rust for Linux 
+DynDns client based on rust for Linux.
 Similar to ddclient
 
 ## Installation
