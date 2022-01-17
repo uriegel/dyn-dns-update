@@ -38,17 +38,20 @@ fn main() {
     let public_ip = get_public_ip().expect("Could not get public ip");
     println!("body = {public_ip:#?}", );
 
-    let is_up_to_date = |resolved_domain: &ResolvedDomain| {
+    let is_not_up_to_date = |resolved_domain: &ResolvedDomain| {
         let res = resolved_domain.ips.contains(&public_ip);
         if res == true { println!("{} already up to date", resolved_domain.name); }
-        res
+        !res
     };
 
-    let domains_to_refresh: Vec<ResolvedDomain> = settings.domains
+    let domains_to_refresh: Vec<String> = settings.domains
         .iter()
         .map(resolve_domain)
-        .filter(is_up_to_date)
+        .filter(is_not_up_to_date)
+        .map(|n|{n.name})
         .collect();
+
+        let affe = domains_to_refresh;
 }
 
 fn get_public_ip() -> Result<IpAddr, reqwest::Error> {
