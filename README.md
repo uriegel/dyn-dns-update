@@ -4,12 +4,12 @@ Similar to ddclient
 
 ## Installation
 ```
-dotnet tool install DynDnsUpdater --global
+Settings are saved in ```~/.config/dyndns-updater.conf``` (Linux)
 ```
 
 ## Executing the tool
 ```
-dyndnsUpdate
+dyn-dns-update
 ``` 
 
 follow Instructions for giving necessary parameters
@@ -25,10 +25,7 @@ crontab -e
 Append
 
 ```
-PATH=$PATH:/usr/share/dotnet-sdk
-DOTNET_ROOT=/usr/share/dotnet-sdk
-
-0 3 * * * /home/pi/.dotnet/tools/dyndnsUpate > /home/pi/logs/dyndns.log 2>&1
+0 3 * * * /home/pi/.dotnet/tools/dyn-dns-update > /home/pi/logs/dyn-dns-update.log 2>&1
 ```
 
-This executes dns update every day at 3 AM. Last log is saved in ```/home/pi/logs/dyndns.log```
+This executes dns update every day at 3 AM. Last log is saved in ```/home/pi/logs/dyn-dns-update.log```
