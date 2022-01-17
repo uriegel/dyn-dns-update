@@ -1,22 +1,17 @@
 # dyn-dns-update
-DynDns client based on .NET Core for Linux and Windows
+DynDns client based on rust for Linux.
 Similar to ddclient
 
 ## Installation
 ```
-Settings are saved in ```~/.config/dyndns-updater.conf``` (Linux)
+Settings are stored in ```~/.config/dyn-dns-update.conf``` 
 ```
 
 ## Executing the tool
 ```
 dyn-dns-update
 ``` 
-
-follow Instructions for giving necessary parameters
-
-Settings are saved in ```~/.config/dyndns-updater.conf``` (Linux)
-
-## Executing tool every day (Linux)
+## Executing tool every day
 
 ```
 crontab -e
