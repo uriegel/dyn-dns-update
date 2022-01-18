@@ -13,5 +13,5 @@ reqwest = { version = "0.11" , features = ["blocking"] }
 dns-lookup = "1.0"
 
 # Pi 2/3/4 Added due to reqwest dependency problems when cross-compiling for RPi
-[target.armv7-unknown-linux-gnueabihf]
+[target.armv7-unknown-linux-gnueabihf.dependencies]
 openssl = { version = "0.10", features = ["vendored"] }
