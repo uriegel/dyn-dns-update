@@ -35,8 +35,18 @@ fn main() {
     let settings: Settings = serde_json::from_str(&settings).expect("Could not extract settings");
     println!("Settings: {settings:#?}");
 
-    let public_ip = get_public_ip().expect("Could not get public ip");
-    println!("body = {public_ip:#?}", );
+    let mut counter = 0;
+    let public_ip = loop {
+        if let Some(ip) = get_public_ip().expect("Could not get public ip") {
+            break ip;
+        }
+        counter += 1;
+        if counter > 5 {
+            panic!("Could not get public ip");
+        }
+    };
+
+    println!("public ip: {public_ip:#?}");
 
     let is_not_up_to_date = |resolved_domain: &ResolvedDomain| {
         let res = resolved_domain.ips.contains(&public_ip);
@@ -56,13 +66,19 @@ fn main() {
     }
 }
 
-fn get_public_ip() -> Result<IpAddr, reqwest::Error> {
-    let text = reqwest::blocking::get("http://checkip.dyndns.org")?.text()?;
-    let pos = text.find("Address:").expect("No Address found") + 8;
-    let ipstr = &text[pos..];
-    let pos = ipstr.find("</body").expect("No Address found");
-    let ipstr = ipstr[.. pos].trim();
-    Ok(IpAddr::from_str(ipstr).unwrap())
+fn get_public_ip() -> Result<Option<IpAddr>, reqwest::Error> {
+    let response = reqwest::blocking::get("http://checkip.dyndns.org")?;
+    if response.status().is_success() {
+        let text = response.text()?;
+        let pos = text.find("Address:").expect("No Address found") + 8;
+        let ipstr = &text[pos..];
+        let pos = ipstr.find("</body").expect("No Address found");
+        let ipstr = ipstr[.. pos].trim();
+        Ok(Some(IpAddr::from_str(ipstr).unwrap()))
+    } else {
+        println!("Request failed: {}", response.status());
+        Ok(None)
+    }
 }
 
 struct ResolvedDomain {
