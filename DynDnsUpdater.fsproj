@@ -4,35 +4,39 @@
     <ToolCommandName>dyndnsUpdate</ToolCommandName>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <Version>2.2.0</Version>
-		<FileVersion>2.2.0.0</FileVersion>
-		<AssemblyVersion>2.2.0.0</AssemblyVersion>
-		<Authors>Uwe Riegel</Authors>
-    <Company>Uwe Riegel</Company>		
-		<Description>DynDns updater</Description>
+    <Version>3.0.0</Version>
+    <FileVersion>3.0.0.0</FileVersion>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <Authors>Uwe Riegel</Authors>
+    <Company>Uwe Riegel</Company>
+    <Description>DynDns updater</Description>
     <PackageTags>F#;dotnet;DynDns</PackageTags>
-		<PackageLicenseUrl></PackageLicenseUrl>
-		<PackageProjectUrl>https://github.com/uriegel/DynDnsUpdater</PackageProjectUrl>
-		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageLicenseUrl>
+    </PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/uriegel/DynDnsUpdater</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageReleaseNotes>
+    <PackageReleaseNotes>
 Config file is now saved in user's .config directory. No need to run the tool as admin.    
-    </PackageReleaseNotes>      
-		<PackageTags>FSharp dotnet tool dyndns</PackageTags>    
+    </PackageReleaseNotes>
+    <PackageTags>FSharp dotnet tool dyndns</PackageTags>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Utils.fs" />
+    <Compile Include="HttpRequest.fs" />
+    <Compile Include="PublicIP.fs" />
     <Compile Include="Settings.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <PropertyGroup>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-  </PropertyGroup>  
+  </PropertyGroup>
   <ItemGroup>
-   	<None Include="LICENSE" pack="true" PackagePath ="." />
-   	<None Include="README.md" pack="true" PackagePath ="." />
- 	</ItemGroup>  
+    <None Include="LICENSE" pack="true" PackagePath="." />
+    <None Include="README.md" pack="true" PackagePath="." />
+  </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FSharpTools" Version="2.2.1" />
+    <PackageReference Include="FSharpTools" Version="8.1.1" />
   </ItemGroup>
 </Project>
