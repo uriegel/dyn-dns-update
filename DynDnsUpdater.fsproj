@@ -23,8 +23,6 @@ Config file is now saved in user's .config directory. No need to run the tool as
     <PackageTags>FSharp dotnet tool dyndns</PackageTags>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Utils.fs" />
-    <Compile Include="HttpRequest.fs" />
     <Compile Include="PublicIP.fs" />
     <Compile Include="Settings.fs" />
     <Compile Include="Program.fs" />
@@ -37,6 +35,7 @@ Config file is now saved in user's .config directory. No need to run the tool as
     <None Include="README.md" pack="true" PackagePath="." />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FSharpTools" Version="8.1.1" />
+    <PackageReference Include="FSharpTools" Version="9.1.0" />
+    <PackageReference Include="FSharpHttpRequest" Version="1.0.0" />
   </ItemGroup>
 </Project>

@@ -1,16 +1,19 @@
 module PublicIP
 
 open FSharpTools
+open FSharpHttpRequest
 open AsyncResult
 
 let get () = 
-    let getResult = HttpRequest.getString [||]
-    let parseIp ipString = ipString |> Utils.subStringStrToStr "Address: " "<"
+    let extractIp = 
+        String.subStringBetweenStrs "Address: " "<"
+        >> (Option.defaultValue "")
+        >> Async.toAsync
 
-    //"http://checkip.dyndns.org"
-    "http://uriegel.de:99"
-        |> getResult
-        |>> (parseIp >> Utils.toAsync)
+    Request.getString { Request.defaultSettings with Url = "http://checkip.dyndns.org" }
+    |>> extractIp
 
+
+    // TODO sometimes 502 bad gateway!
     
 

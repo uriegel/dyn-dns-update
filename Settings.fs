@@ -88,6 +88,6 @@ let getSettings =
                 passwd = passwd
             }
             use file = File.Create settingsFile
-            settings |> Json.serializeStream file
+            JsonSerializer.Serialize(file, settings)
             settings
     memoizeSingle getSettings
