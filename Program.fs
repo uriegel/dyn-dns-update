@@ -3,17 +3,23 @@ open System.IO
 open Settings
 
 
+// TODO retry after failure (3x)
+
 let asyncMain () = async {
     printfn "Starting Dyn DNS Auto Updater..."
-    let test = getSettings ()
+    //let settings = getSettings ()
     let! ip = PublicIP.get ()
+    // TODO mapError Error PublicIP of HttpRequestError
 
 
-
+    // TODO ROP
 
     match ip with
     | Ok ip -> printfn "Public IP Address: %s" ip
     | Error err -> printfn "Error: %O" err
+
+    // TODO iterUntil settings.domains |> Array.iter perform
+    // TODO arrayToList -> head ->perform recursive tail
 
     printfn "Dyn DNS Auto Updater finished"
 } 
@@ -28,7 +34,6 @@ let main argv =
 
     0
 
-// try 
 //     try 
 
 //         let perform (host: string) = 
@@ -55,6 +60,4 @@ let main argv =
 //         settings.domains |> Array.iter perform
 //     with
 //     | e -> printfn "Exception: %O" e
-// finally
-//     printfn "Dyn DNS Auto Updater finished"
 

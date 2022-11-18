@@ -12,8 +12,5 @@ let get () =
 
     Request.getString { Request.defaultSettings with Url = "http://checkip.dyndns.org" }
     |>> extractIp
-
-
-    // TODO sometimes 502 bad gateway!
     
 
