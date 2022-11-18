@@ -3,11 +3,9 @@
 
 async {
     printfn "Starting Dyn DNS Auto Updater..."
-    //let settings = getSettings ()
-    let! ip = PublicIP.get ()
-    // TODO mapError Error PublicIP of HttpRequestError
-
-
+    let! ip = 
+        PublicIP.get ()
+        
     // TODO ROP
 
     match ip with

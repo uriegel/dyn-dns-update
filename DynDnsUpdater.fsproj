@@ -23,6 +23,7 @@ Config file is now saved in user's .config directory. No need to run the tool as
     <PackageTags>FSharp dotnet tool dyndns</PackageTags>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Error.fs" />
     <Compile Include="PublicIP.fs" />
     <Compile Include="Settings.fs" />
     <Compile Include="DnsCheck.fs" />
