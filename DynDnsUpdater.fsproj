@@ -4,9 +4,9 @@
     <ToolCommandName>dyndnsUpdate</ToolCommandName>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <Version>3.0.0</Version>
-    <FileVersion>3.0.0.0</FileVersion>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <Version>4.0.0</Version>
+    <FileVersion>4.0.0.0</FileVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
     <Authors>Uwe Riegel</Authors>
     <Company>Uwe Riegel</Company>
     <Description>DynDns updater</Description>
@@ -27,6 +27,7 @@ Config file is now saved in user's .config directory. No need to run the tool as
     <Compile Include="PublicIP.fs" />
     <Compile Include="Settings.fs" />
     <Compile Include="DnsCheck.fs" />
+    <Compile Include="Update.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <PropertyGroup>

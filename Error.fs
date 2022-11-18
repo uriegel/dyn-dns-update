@@ -2,6 +2,10 @@ module Error
 
 type Error = 
 | PublicIP of FSharpHttpRequest.Error
+| Update   of FSharpHttpRequest.Error
 
-let fromRequestError re =
+let fromIpResult re =
     PublicIP re
+
+let fromUpdateResult re =
+    Update re    

@@ -11,7 +11,7 @@ let get () =
         >> Async.toAsync
 
     Request.getString { Request.defaultSettings with Url = "http://checkip.dyndns.org" }
-    |> mapError Error.fromRequestError
+    |> mapError Error.fromIpResult
     |>> extractIp
     
 

@@ -8,13 +8,16 @@ open System
 open System.Runtime.InteropServices
 
 type Value = {
-    domains: string array    
-    provider: string
-    account: string 
-    passwd: string
+    Domains: string array    
+    Provider: string
+    Account: string 
+    Passwd: string
 }
 
 let getSettings = 
+
+    let options = JsonSerializerOptions( PropertyNameCaseInsensitive = true)
+
     let readPasswd () =
         let rec readKey charList =
             match (Console.ReadKey true).KeyChar with
@@ -64,12 +67,12 @@ let getSettings =
     let getSettings () =
         let settingsFile = 
             Path.Combine (Environment.GetFolderPath Environment.SpecialFolder.ApplicationData, "dyndns-updater.conf")
-        printfn "Settings file: %s" settingsFile
+        printfn "Settings file: %s" settingsFile    
 
         match File.Exists settingsFile with
         | true -> 
             use file = File.OpenRead settingsFile
-            JsonSerializer.Deserialize<Value> file
+            JsonSerializer.Deserialize<Value> (file, options)
         | false -> 
             printfn "Enter domain names, comma separated:"
             let text = Console.ReadLine ()
@@ -80,12 +83,12 @@ let getSettings =
             let account = Console.ReadLine ()
             let passwd = getPasswd ()
             let settings = { 
-                domains = domains
-                provider = provider
-                account = account
-                passwd = passwd
+                Domains = domains
+                Provider = provider
+                Account = account
+                Passwd = passwd
             }
             use file = File.Create settingsFile
-            JsonSerializer.Serialize(file, settings)
+            JsonSerializer.Serialize (file, settings, options)
             settings
     memoizeSingle getSettings
