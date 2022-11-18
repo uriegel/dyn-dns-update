@@ -62,10 +62,8 @@ let getSettings =
         getPasswd ()                
 
     let getSettings () =
-        printfn "Hallo"
         let settingsFile = 
             Path.Combine (Environment.GetFolderPath Environment.SpecialFolder.ApplicationData, "dyndns-updater.conf")
-        // let settingsFile = "/etc/dyndns-updater.conf"
         printfn "Settings file: %s" settingsFile
 
         match File.Exists settingsFile with

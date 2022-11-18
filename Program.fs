@@ -1,11 +1,7 @@
-﻿open System.Net
-open System.IO
-open Settings
-
-
+﻿open Settings
 // TODO retry after failure (3x)
 
-let asyncMain () = async {
+async {
     printfn "Starting Dyn DNS Auto Updater..."
     //let settings = getSettings ()
     let! ip = PublicIP.get ()
@@ -18,21 +14,23 @@ let asyncMain () = async {
     | Ok ip -> printfn "Public IP Address: %s" ip
     | Error err -> printfn "Error: %O" err
 
+
+    let checkDomain ip domain = 
+        DnsCheck.check domain ip
+        |> ignore
+
+    printfn "Checking ip"
+    (getSettings ()).domains  
+    |> Array.iter (checkDomain "12.34.5.6")
+
     // TODO iterUntil settings.domains |> Array.iter perform
     // TODO arrayToList -> head ->perform recursive tail
 
     printfn "Dyn DNS Auto Updater finished"
 } 
+|> Async.RunSynchronously
 
-[<EntryPoint>]
-let main argv = 
-    try 
-        asyncMain () 
-        |> Async.RunSynchronously
-    with
-    | e -> printfn "Exception: %O" e
 
-    0
 
 //     try 
 
