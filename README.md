@@ -9,7 +9,7 @@ dotnet tool install DynDnsUpdater --global
 
 ## Executing the tool
 ```
-dyndnsUpdate
+DynDnsUpdater
 ``` 
 
 follow Instructions for giving necessary parameters
@@ -25,10 +25,9 @@ crontab -e
 Append
 
 ```
-PATH=$PATH:/usr/share/dotnet-sdk
-DOTNET_ROOT=/usr/share/dotnet-sdk
-
-0 3 * * * /home/pi/.dotnet/tools/dyndnsUpate > /home/pi/logs/dyndns.log 2>&1
+PATH=$PATH:/home/pi/.dotnet/tools
+DOTNET_ROOT=/home/pi/.dotnet
+0 3 * * * DynDnsUpdater > /home/pi/logs/dyndns.log 2>&1
 ```
 
-This executes dns update every day at 3 AM. Last log is saved in ```/home/pi/logs/dyndns.log```
+This executes dns update every day at 3 AM (universal time). Last log is saved in ```/home/pi/logs/dyndns.log```

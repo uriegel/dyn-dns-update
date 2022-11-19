@@ -16,7 +16,7 @@ type Value = {
 
 let getSettings = 
 
-    let options = JsonSerializerOptions( PropertyNameCaseInsensitive = true)
+    let options = JsonSerializerOptions (PropertyNameCaseInsensitive = true)
 
     let readPasswd () =
         let rec readKey charList =
@@ -27,9 +27,9 @@ let getSettings =
             | '\b' | '\u007f' -> 
                 match charList with
                 | head :: tail -> 
-                    Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                    Console.SetCursorPosition (Console.CursorLeft - 1, Console.CursorTop)
                     Console.Write " "
-                    Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                    Console.SetCursorPosition (Console.CursorLeft - 1, Console.CursorTop)
                     readKey <| tail 
                 | [] -> readKey []        
             | chr -> 

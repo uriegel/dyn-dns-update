@@ -33,10 +33,13 @@ let updateOnce settings host ip =
             |>> mapResult
 
     | true ->
-        printfn "%s: IP Address not changed, no action needed\n" host
+        printfn "%s: IP Address not changed, no action needed" host
+        printfn ""
         Ok () 
         |> toAsync
 
 let update settings host ip = 
-    let funToRun ()  = updateOnce settings host ip 
-    repeatOnError (TimeSpan.FromSeconds 5) 4 funToRun
+    let funToRun () = updateOnce settings host ip 
+    
+    funToRun
+    |> repeatOnError (TimeSpan.FromSeconds 5) 4 

@@ -7,5 +7,5 @@ let check (domain: string) ip =
         ipAddress.ToString () = ip
     
     (Dns.GetHostEntry domain).AddressList 
-    |> Array.exists (equalsIp)
+    |> Array.exists equalsIp
     
