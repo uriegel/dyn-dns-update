@@ -2,8 +2,6 @@
 open FSharpTools
 open AsyncResult
 
-// TODO retry after failure (3x)
-
 async {
     printfn "Starting Dyn DNS Auto Updater..."
         

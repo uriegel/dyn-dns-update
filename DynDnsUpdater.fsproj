@@ -4,9 +4,9 @@
     <ToolCommandName>dyndnsUpdate</ToolCommandName>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <Version>4.0.0</Version>
-    <FileVersion>4.0.0.0</FileVersion>
-    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <Version>3.0.0</Version>
+    <FileVersion>3.0.0.0</FileVersion>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <Authors>Uwe Riegel</Authors>
     <Company>Uwe Riegel</Company>
     <Description>DynDns updater</Description>
@@ -38,7 +38,7 @@ Config file is now saved in user's .config directory. No need to run the tool as
     <None Include="README.md" pack="true" PackagePath="." />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FSharpTools" Version="9.1.0" />
-    <PackageReference Include="FSharpHttpRequest" Version="1.0.0" />
+    <PackageReference Include="FSharpTools" Version="9.2.1" />
+    <PackageReference Include="FSharpHttpRequest" Version="1.1.0" />
   </ItemGroup>
 </Project>
