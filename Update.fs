@@ -5,9 +5,8 @@ open System
 open Settings
 open FSharpHttpRequest
 open FSharpTools
-open FSharpTools.Functional
 open AsyncResult
-open FSharpTools.Async
+open FSharpTools.Functional
 
 let updateOnce settings host ip = 
 
@@ -15,7 +14,7 @@ let updateOnce settings host ip =
     let mapResult (resStr: string) = 
         printfn "response: %s" resStr 
         () 
-        |> toAsync
+        |> Async.toAsync
 
     let printUrl url = printfn "Updating %s" url
 
@@ -36,7 +35,7 @@ let updateOnce settings host ip =
         printfn "%s: IP Address not changed, no action needed" host
         printfn ""
         Ok () 
-        |> toAsync
+        |> Async.toAsync
 
 let update settings host ip = 
     let funToRun () = updateOnce settings host ip 
