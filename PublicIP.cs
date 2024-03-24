@@ -1,6 +1,3 @@
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
 using CsTools.Async;
 using CsTools.Extensions;
 using CsTools.HttpRequest;

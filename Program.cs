@@ -4,7 +4,7 @@ WriteLine("Starting Dyn DNS Auto Updater...");
 
 WriteLine(await PublicIP.Get());
 
-WriteLine(Settings.GetPasswd());
+WriteLine(Settings.Read());
 //WriteLine(Settings.Get());
        
 //     let performUpdate = 
