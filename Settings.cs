@@ -1,20 +1,27 @@
-// module Settings
+using CsTools;
+using CsTools.Extensions;
 
-// open FSharpTools
-// open FSharpTools.Functional
-// open System.IO
-// open System.Text.Json
-// open System
-// open System.Runtime.InteropServices
+using static System.Console;
 
-// type Value = {
-//     Domains: string array    
-//     Provider: string
-//     Account: string 
-//     Passwd: string
-// }
+record Settings(
+    string[] Domains,
+    string Provider,
+    string Account,
+    string Passwd)
+{
+    public static Settings Get()
+    {
+        var settingsFile = Environment
+                            .GetFolderPath(Environment.SpecialFolder.ApplicationData)
+                            .WhiteSpaceToNull()
+                            .Pipe(s => s ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).AppendPath(".config"))
+                            .EnsureDirectoryExists()
+                            .AppendPath("dyndns-updater.conf")
+                            .SideEffect(s => WriteLine($"Settings file: {s}"));
 
-// let getSettings = 
+        return null;
+    }
+}
 
 //     let options = JsonSerializerOptions (PropertyNameCaseInsensitive = true)
 

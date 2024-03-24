@@ -1,20 +1,29 @@
-// module PublicIP
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+using CsTools.Async;
+using CsTools.Extensions;
+using CsTools.HttpRequest;
 
-// open FSharpTools
-// open FSharpHttpRequest
-// open AsyncResult
-// open System
+using static CsTools.Core;
+using static CsTools.HttpRequest.Core;
 
-// let get () = 
-//     let get () = 
-//         let extractIp = 
-//             String.subStringBetweenStrs "Address: " "<"
-//             >> (Option.defaultValue "")
-//             >> Async.toAsync
+static class PublicIP
+{
+    public static Task<string> Get()
+        => RepeatOnException(
+            () => RequestIP()
+                    .Select(ExtractIP),
+            4, 
+            TimeSpan.FromSeconds(5));
 
-//         Request.getString { Request.defaultSettings with Url = "http://checkip.dyndns.org" }
-//         |> mapError Error.fromIpResult
-//         |>> extractIp
-    
-//     get
-//     |> repeatOnError (TimeSpan.FromSeconds 5) 4 
+    static string ExtractIP(string ipStr)
+        => ipStr.StringBetween("Address: ", "<");
+
+    static Task<string> RequestIP()
+        => Request.GetStringAsync(DefaultSettings with
+        {
+            Method = HttpMethod.Get,
+            BaseUrl = "http://checkip.dyndns.org"
+        });
+}

@@ -3,6 +3,8 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>DynDnsUpdater</ToolCommandName>
     <OutputType>Exe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
     <TargetFramework>net8.0</TargetFramework>
     <Version>5.0.0</Version>
     <FileVersion>5.0.0.0</FileVersion>
@@ -19,9 +21,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReleaseNotes>
-New name: DynDnsUpdater    
-Config file is now saved in user's .config directory. No need to run the tool as admin.    
-PublicIP is repeated up to 3 times on error
+Converted to C#
     </PackageReleaseNotes>
     <PackageTags>FSharp dotnet tool dyndns</PackageTags>
   </PropertyGroup>
@@ -31,5 +31,8 @@ PublicIP is repeated up to 3 times on error
   <ItemGroup>
     <None Include="LICENSE" pack="true" PackagePath="." />
     <None Include="README.md" pack="true" PackagePath="." />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CsTools" Version="7.14.10" />
   </ItemGroup>
 </Project>

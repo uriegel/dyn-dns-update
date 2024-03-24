@@ -1,13 +1,11 @@
 ﻿using static System.Console;
 
 WriteLine("Starting Dyn DNS Auto Updater...");
-// open Settings
-// open FSharpTools
-// open AsyncResult
 
-// async {
-//     printfn "Starting Dyn DNS Auto Updater..."
-        
+WriteLine(await PublicIP.Get());
+
+WriteLine(Settings.Get());
+       
 //     let performUpdate = 
 //         let rec performUpdate res ip ipList = async {
 //             match ipList, res with
