@@ -21,6 +21,27 @@ record Settings(
 
         return null;
     }
+
+    public 
+    
+    
+    static string GetPasswd() 
+    {
+        static string GetPasswdFromConsole(bool again)
+            => Unit.Value.SideEffect(_ => WriteLine($"Enter your dyndns password{(again ? " again" : "")}"))
+                .Pipe(_ => Password.ReadPassword().ReadSecureString());
+
+        static string GetPasswd()
+            => (GetPasswdFromConsole(false), GetPasswdFromConsole(true)) switch
+            {
+                (var a, var b) when a == b => a,
+                _ => Unit.Value.SideEffect(_ => WriteLine("Passwords did not match, please try again:"))
+                    .Pipe(_ => GetPasswd())
+            };
+        
+        return GetPasswd();
+    }
+
 }
 
 //     let options = JsonSerializerOptions (PropertyNameCaseInsensitive = true)

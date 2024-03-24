@@ -33,6 +33,6 @@ Converted to C#
     <None Include="README.md" pack="true" PackagePath="." />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CsTools" Version="7.14.10" />
+    <PackageReference Include="CsTools" Version="7.15.0" />
   </ItemGroup>
 </Project>
