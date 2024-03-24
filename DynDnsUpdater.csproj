@@ -3,14 +3,14 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>DynDnsUpdater</ToolCommandName>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <Version>4.1.0</Version>
-    <FileVersion>4.1.0.0</FileVersion>
-    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <TargetFramework>net8.0</TargetFramework>
+    <Version>5.0.0</Version>
+    <FileVersion>5.0.0.0</FileVersion>
+    <AssemblyVersion>5.0.0.0</AssemblyVersion>
     <Authors>Uwe Riegel</Authors>
     <Company>Uwe Riegel</Company>
     <Description>DynDns updater</Description>
-    <PackageTags>F#;dotnet;DynDns</PackageTags>
+    <PackageTags>C#;dotnet;DynDns</PackageTags>
     <PackageLicenseUrl>
     </PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/uriegel/DynDnsUpdater</PackageProjectUrl>
@@ -24,23 +24,11 @@ PublicIP is repeated up to 3 times on error
     </PackageReleaseNotes>
     <PackageTags>FSharp dotnet tool dyndns</PackageTags>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="Error.fs" />
-    <Compile Include="PublicIP.fs" />
-    <Compile Include="Settings.fs" />
-    <Compile Include="DnsCheck.fs" />
-    <Compile Include="Update.fs" />
-    <Compile Include="Program.fs" />
-  </ItemGroup>
   <PropertyGroup>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
     <None Include="LICENSE" pack="true" PackagePath="." />
     <None Include="README.md" pack="true" PackagePath="." />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="FSharpTools" Version="9.4.1" />
-    <PackageReference Include="FSharpHttpRequest" Version="1.1.0" />
   </ItemGroup>
 </Project>
