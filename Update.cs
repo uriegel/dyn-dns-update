@@ -1,16 +1,31 @@
-// module Update 
+using CsTools.Extensions;
+using CsTools.Functional;
+using CsTools.HttpRequest;
 
-// open System
+using static CsTools.HttpRequest.Core;
 
-// open Settings
-// open FSharpHttpRequest
-// open FSharpTools
-// open AsyncResult
-// open FSharpTools.Functional
+static class Update 
+{
+    public static AsyncResult<string, RequestError> Run(Settings settings, string ip, string domain)   
+        // await Dns.Check(domain, ip)
+        // ? Unit.Value.SideEffect(_ => WriteLine($"{domain}: IP Address not changed, no action needed")).ToAsync()
+        // : Unit.Value.ToAsync();
 
+        => Request
+            .Run(DefaultSettings with
+                {
+                    Method = HttpMethod.Get,
+                    BaseUrl = $"https://{settings.Provider}",
+                    Headers = [
+                        new Header("User-Agent", "DynDNS Updater"),
+                        BasicAuthentication.From("uriegel.de", "juliachiara1")], 
+                    Url = $"/nic/update?hostname={domain}&myip={ip}"
+                })
+            .BindAwait(m => m.ReadAsStringAwait());
+}
 // let updateOnce settings host ip = 
 
-//     let getUrl () = sprintf "https://%s/nic/update?hostname=%s&myip=%s" settings.Provider host ip
+
 //     let mapResult (resStr: string) = 
 //         printfn "response: %s" resStr 
 //         () 
