@@ -3,14 +3,17 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>DynDnsUpdater</ToolCommandName>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <Version>4.1.0</Version>
-    <FileVersion>4.1.0.0</FileVersion>
-    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TargetFramework>net8.0</TargetFramework>
+    <Version>5.0.0</Version>
+    <FileVersion>5.0.0.0</FileVersion>
+    <AssemblyName>DynDnsUpdater</AssemblyName>
+    <AssemblyVersion>5.0.0.0</AssemblyVersion>
     <Authors>Uwe Riegel</Authors>
     <Company>Uwe Riegel</Company>
     <Description>DynDns updater</Description>
-    <PackageTags>F#;dotnet;DynDns</PackageTags>
+    <PackageTags>C#;dotnet;DynDns</PackageTags>
     <PackageLicenseUrl>
     </PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/uriegel/DynDnsUpdater</PackageProjectUrl>
@@ -18,20 +21,10 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReleaseNotes>
-New name: DynDnsUpdater    
-Config file is now saved in user's .config directory. No need to run the tool as admin.    
-PublicIP is repeated up to 3 times on error
+Converted to C#
     </PackageReleaseNotes>
     <PackageTags>FSharp dotnet tool dyndns</PackageTags>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="Error.fs" />
-    <Compile Include="PublicIP.fs" />
-    <Compile Include="Settings.fs" />
-    <Compile Include="DnsCheck.fs" />
-    <Compile Include="Update.fs" />
-    <Compile Include="Program.fs" />
-  </ItemGroup>
   <PropertyGroup>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
@@ -40,7 +33,6 @@ PublicIP is repeated up to 3 times on error
     <None Include="README.md" pack="true" PackagePath="." />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FSharpTools" Version="9.4.1" />
-    <PackageReference Include="FSharpHttpRequest" Version="1.1.0" />
+    <PackageReference Include="CsTools" Version="7.16.0" />
   </ItemGroup>
 </Project>
