@@ -1,7 +1,10 @@
+using System.Text.Json;
 using CsTools;
 using CsTools.Extensions;
+using CsTools.Functional;
 
 using static System.Console;
+using static CsTools.Functional.Memoization;
 
 record Settings(
     string[] Domains,
@@ -10,22 +13,23 @@ record Settings(
     string Passwd)
 {
     public static Settings Get()
-    {
-        var settingsFile = Environment
-                            .GetFolderPath(Environment.SpecialFolder.ApplicationData)
-                            .WhiteSpaceToNull()
-                            .Pipe(s => s ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).AppendPath(".config"))
-                            .EnsureDirectoryExists()
-                            .AppendPath("dyndns-updater.conf")
-                            .SideEffect(s => WriteLine($"Settings file: {s}"));
+        => File.Exists(GetFile())
+            ? Using.Use(GetFile().OpenFile(),
+                file => JsonSerializer.Deserialize<Settings>(file, options)!) // TODO ! Validation
+            : Read();
 
-        return null;
-    }
+    static Func<string> GetFile { get; }
+        = Memoize(() 
+            =>  Environment
+                    .GetFolderPath(Environment.SpecialFolder.ApplicationData)
+                    .WhiteSpaceToNull()
+                    .Pipe(s => s ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).AppendPath(".config"))
+                    .EnsureDirectoryExists()
+                    .AppendPath("dyndns-updater.conf")
+                    .SideEffect(s => WriteLine($"Settings file: {s}")));
 
-
-    public
     static Settings Read()
-        => new(Unit.Value
+        => new Settings(Unit.Value
                     .SideEffect(_ => WriteLine("Enter domain names, comma separated:"))
                     .Pipe(_ => (ReadLine() ?? "")
                         .Split(',')
@@ -37,7 +41,13 @@ record Settings(
                 Unit.Value
                     .SideEffect(_ => WriteLine("Enter your dyndns account name:"))
                     .Pipe(_ => ReadLine() ?? ""),
-                GetPasswd());
+                GetPasswd())
+                    .SideEffect(Save);
+
+    static void Save(Settings settings)
+        => Using.Use(
+            File.Create(GetFile()),
+            file => JsonSerializer.Serialize(file, settings, options));
 
     static string GetPasswd() 
     {
@@ -56,22 +66,11 @@ record Settings(
         return GetPasswd();
     }
 
+    static readonly JsonSerializerOptions options = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase, 
+    };
 }
 
-//     let options = JsonSerializerOptions (PropertyNameCaseInsensitive = true)
 
-//     let getSettings () =
-//         let settingsFile = 
-//             Path.Combine (Environment.GetFolderPath Environment.SpecialFolder.ApplicationData, "dyndns-updater.conf")
-//         printfn "Settings file: %s" settingsFile    
 
-//         match File.Exists settingsFile with
-//         | true -> 
-//             use file = File.OpenRead settingsFile
-//             JsonSerializer.Deserialize<Value> (file, options)
-//         | false -> 
-//             printfn "Enter domain names, comma separated:"
-//             use file = File.Create settingsFile
-//             JsonSerializer.Serialize (file, settings, options)
-//             settings
-//     memoizeSingle getSettings

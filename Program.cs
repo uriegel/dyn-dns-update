@@ -4,8 +4,7 @@ WriteLine("Starting Dyn DNS Auto Updater...");
 
 WriteLine(await PublicIP.Get());
 
-WriteLine(Settings.Read());
-//WriteLine(Settings.Get());
+WriteLine(Settings.Get());
        
 //     let performUpdate = 
 //         let rec performUpdate res ip ipList = async {
