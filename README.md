@@ -12,9 +12,9 @@ sudo pacman -S openssl
 sudo dnf install openssl-devel
 
 ## Installation
-```
+
 Settings are stored in ```~/.config/dyn-dns-update/dyn-dns-update.conf``` 
-```
+
 
 ## Executing the tool
 ```
@@ -29,7 +29,7 @@ crontab -e
 Append
 
 ```
-0 3 * * * /home/pi/server/dyn-dns-update > /home/pi/logs/dyn-dns-update.log 2>&1
+0 3 * * * /home/uwe/home-server/dyn-dns-update > /home/uwe/logs/dyn-dns-update.log 2>&1
 ```
 
-This executes dns update every day at 3 AM. Last log is saved in ```/home/pi/logs/dyn-dns-update.log```
+This executes dns update every day at 3 AM. Last log is saved in ```/home/uwe/logs/dyn-dns-update.log```
