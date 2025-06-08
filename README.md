@@ -1,5 +1,5 @@
 # dyn-dns-update
-DynDns client based on .NET Core for Linux and Windows
+DynDns client based on .NET 9.0 for Linux and Windows
 Similar to ddclient
 
 ## Installation
@@ -25,6 +25,7 @@ crontab -e
 Append
 
 ```
+PATH=$PATH:/home/pi/.dotnet/tools
 0 3 * * * DynDnsUpdater > /home/pi/logs/dyndns.log 2>&1
 ```
 
