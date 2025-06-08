@@ -25,8 +25,6 @@ crontab -e
 Append
 
 ```
-PATH=$PATH:/home/pi/.dotnet/tools
-DOTNET_ROOT=/home/pi/.dotnet
 0 3 * * * DynDnsUpdater > /home/pi/logs/dyndns.log 2>&1
 ```
 

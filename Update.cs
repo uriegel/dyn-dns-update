@@ -28,7 +28,7 @@ static class Update
                     BaseUrl = $"https://{settings.Provider}",
                     Headers = [
                         new Header("User-Agent", "DynDNS Updater"),
-                        BasicAuthentication.From("uriegel.de", "juliachiara1")], 
+                        BasicAuthentication.From(settings.Account, settings.Passwd)], 
                     Url = $"/nic/update?hostname={domain.SideEffect(d => WriteLine($"Updating {d}"))}&myip={ip}"
                 })
             .BindAwait(m => m.ReadAsStringAwait())
