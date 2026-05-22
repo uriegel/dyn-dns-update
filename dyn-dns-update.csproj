@@ -5,11 +5,9 @@
     <OutputType>Exe</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <TargetFramework>net9.0</TargetFramework>
-    <Version>6.0.0</Version>
-    <FileVersion>6.0.0.0</FileVersion>
+    <TargetFramework>net10.0</TargetFramework>
+    <Version>10.0.0</Version>
     <AssemblyName>DynDnsUpdater</AssemblyName>
-    <AssemblyVersion>6.0.0.0</AssemblyVersion>
     <Authors>Uwe Riegel</Authors>
     <Company>Uwe Riegel</Company>
     <Description>DynDns updater</Description>
@@ -20,9 +18,7 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>
-Converted to C#
-    </PackageReleaseNotes>
+    <PackageReleaseNotes>.NET 10</PackageReleaseNotes>
     <PackageTags>FSharp dotnet tool dyndns</PackageTags>
   </PropertyGroup>
   <PropertyGroup>
@@ -33,6 +29,6 @@ Converted to C#
     <None Include="README.md" pack="true" PackagePath="." />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CsTools" Version="7.25.8" />
+    <PackageReference Include="CsTools" Version="9.0.3" />
   </ItemGroup>
 </Project>
