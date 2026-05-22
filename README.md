@@ -1,5 +1,5 @@
 # dyn-dns-update
-DynDns client based on .NET 9.0 for Linux and Windows
+DynDns client based on .NET 10.0 for Linux and Windows
 Similar to ddclient
 
 ## Installation
